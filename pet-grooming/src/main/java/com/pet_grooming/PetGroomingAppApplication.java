@@ -20,6 +20,4 @@ public class PetGroomingAppApplication {
         SpringApplication.run(PetGroomingAppApplication.class, args);
     }
 
-
-
 }
