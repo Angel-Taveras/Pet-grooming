@@ -39,7 +39,7 @@ public class PetController {
         User user = userRepository.findByEmail(email).orElseThrow();
         pet.setUser(user);
         petRepository.save(pet);
-        return "redirect:/user/home";
+        return "redirect:/pets";
     }
 
     @GetMapping("/pets")

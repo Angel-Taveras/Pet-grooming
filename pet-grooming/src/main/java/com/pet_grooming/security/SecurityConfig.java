@@ -22,13 +22,27 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/admin/**").hasRole("ADMIN") // solo admin
-                        .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN") // user o admin
-                        .anyRequest().permitAll() // público
+                        // Acceso solo para admin
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        // Acceso para usuarios autenticados (user o admin)
+                        .requestMatchers(
+                                "/user/**",
+                                "/pets/**",
+                                "/appointments/**"
+
+                        ).hasAnyRole("USER", "ADMIN")
+                        // Rutas públicas
+                        .requestMatchers(
+                                "/", "/register", "/login",
+                                "/css/**", "/js/**", "/images/**", "/uploads/**"
+                        ).permitAll()
+                        // Cualquier otra ruta requiere autenticación
+                        .anyRequest().authenticated()
                 )
                 .csrf(csrf -> csrf.disable())
                 .formLogin(form -> form
                         .loginPage("/login")
+                        .defaultSuccessUrl("/", true)
                         .permitAll()
                 )
                 .logout(logout -> logout
