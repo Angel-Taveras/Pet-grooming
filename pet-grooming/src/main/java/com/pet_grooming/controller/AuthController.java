@@ -65,7 +65,7 @@ public class AuthController {
 
         } catch (IOException e) {
             e.printStackTrace();
-            return "register"; // Mostrar formulario con error
+            return "register";
         }
     }
 }
