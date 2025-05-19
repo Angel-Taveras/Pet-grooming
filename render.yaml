@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: petgrooming
+    env: java
+    buildCommand: "./mvnw clean package"
+    startCommand: "java -jar target/*.jar"
+    plan: free
+    branch: master
+    region: frankfurt
+    rootDir: pet-grooming

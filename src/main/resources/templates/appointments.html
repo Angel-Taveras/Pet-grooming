@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Appointments</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div th:insert="~{fragments :: navbar}"></div>
+
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white text-center">
+            <h4>My Appointments</h4>
+        </div>
+        <div class="card-body">
+            <div th:if="${appointments.size() == 0}" class="text-center text-muted">
+                <p>No appointments found.</p>
+                <a href="/appointments/new" class="btn btn-outline-primary">Create one</a>
+            </div>
+
+            <div th:if="${appointments.size() > 0}" class="table-responsive">
+                <table class="table table-hover table-bordered align-middle">
+                    <thead class="table-primary">
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Pet</th>
+                        <th>Services</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="appointment : ${appointments}">
+                        <td th:text="${appointment.date}"></td>
+                        <td th:text="${appointment.time}"></td>
+                        <td>
+                            <span class="badge bg-warning text-dark" th:text="${appointment.status}"></span>
+                        </td>
+                        <td th:text="${appointment.pet.name}"></td>
+                        <td>
+                            <ul class="list-unstyled mb-0">
+                                <li th:each="service : ${appointment.services}" th:text="${service.name}"></li>
+                            </ul>
+                        </td>
+                        <td th:text="${appointment.description}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer text-center">
+            <a href="/appointments/new" class="btn btn-primary">Create New Appointment</a>
+        </div>
+    </div>
+</div>
+
+<div th:insert="~{fragments :: footer}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
