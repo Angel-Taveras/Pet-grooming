@@ -5,5 +5,5 @@ services:
     buildCommand: "./mvnw clean package"
     startCommand: "java -jar target/*.jar"
     plan: free
-    branch: main
+    branch: master
     region: frankfurt
